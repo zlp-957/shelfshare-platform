@@ -1,0 +1,41 @@
+# ===== Node / Frontend =====
+node_modules/
+dist/
+.vite/
+
+# ===== Java / Backend =====
+backend/target/
+*.class
+*.jar
+!*.jar.original
+
+# ===== IDE / OS =====
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# ===== WorkBuddy =====
+.workbuddy/
+
+# ===== Logs / Temp =====
+*.log
+*.tmp
+
+# ===== 本地测试账号（含明文密码，禁止提交） =====
+测试账号.txt
+
+# ===== 工具产物 / 临时文件 =====
+.trae-html-share-packages/
+新建 DOCX 文档.docx
+
+# ===== 本地私有环境变量（数据库密码等，禁止提交） =====
+env.local.bat
+
+# ===== 支付密钥与证书（严禁提交，泄露将导致资金风险） =====
+certs/
+backend/src/main/resources/certs/
+*.pem
+*_private_key.txt
+

@@ -1,0 +1,333 @@
+/**
+ * Element Plus 主题覆盖
+ * 目标：把默认的蓝色系统替换成墨绿 + 琥珀的品牌体系，
+ *      并把卡片、表格、按钮、输入框、分页、弹层统一到同一套规则下。
+ * 说明：颜色全部手写 hex 变体，不依赖 color-mix，保证旧浏览器也生效。
+ */
+
+:root {
+  /* ---------- 品牌主色：深松绿 ---------- */
+  --el-color-primary: #2f5d50;
+  --el-color-primary-light-3: #6d8e85;
+  --el-color-primary-light-5: #97aea8;
+  --el-color-primary-light-7: #c1cecb;
+  --el-color-primary-light-8: #d5dfdc;
+  --el-color-primary-light-9: #eaefee;
+  --el-color-primary-dark-2: #264a40;
+
+  /* ---------- 成功 ---------- */
+  --el-color-success: #4a7c59;
+  --el-color-success-light-3: #80a38b;
+  --el-color-success-light-5: #a5beac;
+  --el-color-success-light-7: #c9d8cd;
+  --el-color-success-light-8: #dbe5de;
+  --el-color-success-light-9: #edf2ee;
+  --el-color-success-dark-2: #3b6347;
+
+  /* ---------- 警告：琥珀 ---------- */
+  --el-color-warning: #c8863c;
+  --el-color-warning-light-3: #d9aa77;
+  --el-color-warning-light-5: #e4c39e;
+  --el-color-warning-light-7: #efdbc5;
+  --el-color-warning-light-8: #f4e7d8;
+  --el-color-warning-light-9: #faf3ec;
+  --el-color-warning-dark-2: #a06b30;
+
+  /* ---------- 危险 ---------- */
+  --el-color-danger: #b4453c;
+  --el-color-danger-light-3: #cb7d77;
+  --el-color-danger-light-5: #daa29e;
+  --el-color-danger-light-7: #e9c7c5;
+  --el-color-danger-light-8: #f0dad8;
+  --el-color-danger-light-9: #f8ecec;
+  --el-color-danger-dark-2: #903730;
+
+  /* ---------- 信息 ---------- */
+  --el-color-info: #6b7269;
+  --el-color-info-light-3: #979c96;
+  --el-color-info-light-5: #b5b9b4;
+  --el-color-info-light-7: #d3d5d2;
+  --el-color-info-light-8: #e1e3e1;
+  --el-color-info-light-9: #f0f1f0;
+  --el-color-info-dark-2: #565b54;
+
+  /* ---------- 表面与文字 ---------- */
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #fbfaf7;
+  --el-bg-color-overlay: #ffffff;
+
+  --el-text-color-primary: #1f2320;
+  --el-text-color-regular: #566058;
+  --el-text-color-secondary: #8a9189;
+  --el-text-color-placeholder: #a8ada6;
+  --el-text-color-disabled: #b8bdb6;
+
+  --el-border-color: #e4e1d9;
+  --el-border-color-light: #eae7e0;
+  --el-border-color-lighter: #f0eee8;
+  --el-border-color-extra-light: #f5f3ee;
+  --el-border-color-dark: #d3cfc4;
+  --el-border-color-darker: #c2bdb0;
+
+  --el-fill-color: #f4f2ed;
+  --el-fill-color-light: #f8f6f2;
+  --el-fill-color-lighter: #fbfaf7;
+  --el-fill-color-blank: #ffffff;
+
+  /* ---------- 排版与圆角 ---------- */
+  --el-font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "微软雅黑", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 6px;
+  --el-border-radius-round: 999px;
+
+  --el-box-shadow-light: 0 6px 18px rgba(27, 42, 36, 0.08);
+  --el-box-shadow: 0 20px 48px rgba(27, 42, 36, 0.14);
+}
+
+/* ================= 卡片 ================= */
+.el-card {
+  --el-card-border-color: var(--line);
+  --el-card-border-radius: var(--r-lg);
+  --el-card-padding: var(--sp-5);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-1) !important;
+  transition: box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+.el-card__header {
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--line);
+  font-weight: 600;
+  font-size: var(--fs-md);
+}
+
+/* ================= 表格 ================= */
+.el-table {
+  --el-table-border-color: var(--line);
+  --el-table-header-bg-color: var(--paper-sunken);
+  --el-table-header-text-color: var(--text-secondary);
+  --el-table-row-hover-bg-color: var(--green-50);
+  --el-table-text-color: var(--text);
+  font-size: var(--fs-base);
+}
+.el-table th.el-table__cell {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-strong) !important;
+}
+.el-table td.el-table__cell {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+/* 数字列上下对齐：ISBN、库存、金额、时间都受益 */
+.el-table .cell {
+  font-variant-numeric: tabular-nums;
+}
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background: #fcfbf8;
+}
+.el-table__inner-wrapper::before {
+  display: none;
+}
+/* 操作列按钮之间留出呼吸 */
+.el-table .cell > .el-button + .el-button {
+  margin-left: 6px;
+}
+
+/* ================= 按钮 ================= */
+.el-button {
+  --el-button-font-weight: 500;
+  border-radius: var(--r-md);
+  letter-spacing: 0.02em;
+  transition: transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) ease;
+}
+.el-button:not(.is-text):not(.is-link):hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-1);
+}
+.el-button:not(.is-text):not(.is-link):active {
+  transform: translateY(0);
+}
+.el-button--primary {
+  --el-button-bg-color: var(--green-700);
+  --el-button-border-color: var(--green-700);
+  --el-button-hover-bg-color: var(--green-600);
+  --el-button-hover-border-color: var(--green-600);
+  --el-button-active-bg-color: var(--green-800);
+  --el-button-active-border-color: var(--green-800);
+}
+.el-button--large {
+  height: 44px;
+  padding: 0 24px;
+  font-size: var(--fs-base);
+}
+
+/* ================= 输入类 ================= */
+/* flex 子项默认 min-width:auto，长 placeholder 会把输入框撑出容器导致横向溢出，
+   这里显式放开收缩，窄屏才不会裁切 */
+.el-form-item__content,
+.el-input,
+.el-input-number,
+.el-select,
+.el-input__inner,
+.el-textarea__inner {
+  min-width: 0;
+}
+.el-input__wrapper,
+.el-textarea__inner,
+.el-select__wrapper {
+  border-radius: var(--r-md);
+  box-shadow: 0 0 0 1px var(--el-border-color) inset;
+  transition: box-shadow var(--dur-fast) ease;
+}
+.el-input__wrapper:hover,
+.el-textarea__inner:hover,
+.el-select__wrapper:hover {
+  box-shadow: 0 0 0 1px var(--text-muted) inset;
+}
+.el-input__wrapper.is-focus,
+.el-select__wrapper.is-focused,
+.el-textarea__inner:focus {
+  box-shadow: 0 0 0 2px var(--green-600) inset !important;
+}
+.el-input__inner {
+  font-family: var(--font-sans);
+}
+
+/* ================= 弹层 ================= */
+.el-dialog {
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-3);
+}
+.el-dialog__header {
+  padding: var(--sp-5) var(--sp-5) var(--sp-3);
+  margin-right: 0;
+  border-bottom: 1px solid var(--line);
+}
+.el-dialog__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--text);
+}
+.el-dialog__body {
+  padding: var(--sp-5);
+}
+.el-dialog__footer {
+  padding: var(--sp-3) var(--sp-5) var(--sp-5);
+}
+.el-message-box {
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+}
+.el-message-box__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-md);
+}
+
+/* ================= 分页 ================= */
+.el-pagination {
+  --el-pagination-button-bg-color: transparent;
+  --el-pagination-hover-color: var(--green-700);
+  font-family: var(--font-mono);
+}
+.el-pagination.is-background .el-pager li {
+  border-radius: var(--r-sm);
+  background: transparent;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.el-pagination.is-background .el-pager li:not(.is-active):hover {
+  border-color: var(--green-600);
+  color: var(--green-700);
+}
+.el-pagination.is-background .el-pager li.is-active {
+  background: var(--green-700);
+  border-color: var(--green-700);
+  color: #fff;
+}
+
+/* ================= 标签 ================= */
+.el-tag {
+  border-radius: var(--r-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-width: 1px;
+}
+
+/* ================= 提示条 ================= */
+.el-alert {
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+}
+.el-alert__title {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+
+/* ================= 单选按钮组 ================= */
+.el-radio-button__inner {
+  border-radius: var(--r-md) !important;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  box-shadow: none !important;
+}
+.el-radio-button:first-child .el-radio-button__inner,
+.el-radio-button:last-child .el-radio-button__inner {
+  border-radius: var(--r-md) !important;
+}
+.el-radio-button__original-radio:checked + .el-radio-button__inner {
+  background: var(--green-700);
+  border-color: var(--green-700);
+  color: #fff;
+}
+.el-radio-group {
+  gap: 6px;
+  display: inline-flex;
+}
+
+/* ================= 下拉菜单 ================= */
+.el-dropdown-menu {
+  padding: 6px;
+  border-radius: var(--r-md);
+}
+.el-dropdown-menu__item {
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm);
+}
+.el-dropdown-menu__item:hover {
+  background: var(--green-50);
+  color: var(--green-700);
+}
+
+/* ================= 空状态 ================= */
+/* 默认插图偏大且立体感强，与扁平发丝边框的风格不搭，统一收小 */
+.el-empty {
+  padding: var(--sp-6) 0;
+}
+.el-empty__image {
+  width: 84px !important;
+}
+.el-empty__description {
+  margin-top: var(--sp-2);
+}
+.el-empty__description p {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* ================= 表单 ================= */
+.el-form-item__label {
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.02em;
+}

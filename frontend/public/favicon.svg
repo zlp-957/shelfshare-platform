@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="书屿">
+  <!-- 底色：墨绿，圆角方形，贴合项目主色 --green-900 -->
+  <rect width="64" height="64" rx="14" fill="#1b2a24"/>
+
+  <!-- 打开的书：左页米白、右页琥珀，中间一道书脊 -->
+  <path d="M31 22.5C26.2 19.7 20.4 18.6 15.5 19.7v25.6c4.9-1.1 10.7 0 15.5 2.8z" fill="#f2f7f4"/>
+  <path d="M33 22.5c4.8-2.8 10.6-3.9 15.5-2.8v25.6c-4.9-1.1-10.7 0-15.5 2.8z" fill="#dda45f"/>
+
+  <!-- 书脊 -->
+  <rect x="31" y="21.5" width="2" height="27" rx="1" fill="#1b2a24"/>
+
+  <!-- 页脚一线，暗示"屿"的水平面 -->
+  <rect x="17" y="48.5" width="30" height="2" rx="1" fill="#4d8a7b" opacity="0.55"/>
+</svg>

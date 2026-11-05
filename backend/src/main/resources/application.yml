@@ -1,0 +1,115 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: book-loop
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/library?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    # 密码不写进仓库：启动前通过环境变量注入（见项目根 env.local.bat.example）
+    # 用 start-backend.bat 启动时会自动加载 env.local.bat
+    password: ${DB_PASSWORD:}
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 10MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: isDelete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+# 自定义配置
+library:
+  jwt:
+    secret: library-management-system-secret-key-2026-zhanglipeng
+    expire-hours: 24
+  file:
+    # 图书封面存储目录。
+    # 注意：相对路径的基准是「启动时的工作目录」，不是 jar 所在目录。
+    # 用根目录的 start-backend.bat 启动时工作目录就是项目根，指向 项目根/uploads；
+    # 如果 cd 到 backend 再 java -jar，会解析成 backend/uploads（不存在），
+    # 结果是接口正常但所有封面 404。启动日志会打印实际解析到的绝对路径。
+    upload-dir: uploads
+    # 封面访问前缀
+    url-prefix: /uploads
+  borrow:
+    max-count: 5              # 最多同时借阅本数
+    days: 30                  # 借阅期限（天），从核销时刻起算
+    overdue-fee-per-day: 1    # 逾期费（元/天）
+    buyout-overdue-days: 30   # 逾期满多少天视为买断，押金不退
+    pending-expire-hours: 2   # 支付后多少小时未到馆核销，自动退款取消
+  reserve:
+    valid-days: 5       # 预约通知后有效天数
+
+  # ============ 订单号 ============
+  order:
+    # 实例编号 0~99。单机随便配；多实例部署时每个实例必须不同，
+    # 否则同一毫秒内两边会生成相同单号（唯一索引会挡住，但用户会看到 500）
+    worker-id: 1
+
+  # ============ 站内信 ============
+  message:
+    # 到期前多少天开始提醒
+    due-ahead-days: 3
+
+  # ============ 押金退款 ============
+  refund:
+    # 退款失败后超过多少小时仍停在「待重试」，就在对账页报一条「退款滞留」。
+    # 补偿任务是每 10 分钟一次，正常情况下几分钟内就该成功，
+    # 超过 24 小时还挂着基本可以确定是持续失败（渠道报错 / 证书过期 / 配置错）
+    stale-hours: 24
+
+  # ============ ISBN 自动录入 ============  isbn:
+    enabled: true
+    # 第三方图书元数据接口（免费、无需 key）；接入商业接口时改这里即可
+    api-url: https://openlibrary.org/api/books
+    # 超时时间：录入图书是交互操作，超过 3 秒就该降级为手动填写
+    timeout-ms: 3000
+
+  # ============ 安全 ============
+  security:
+    # 是否信任反向代理传来的 X-Forwarded-For。
+    # 默认 false：直连时用 remoteAddr，否则客户端随便伪造一个头就能绕过限流。
+    # 只有部署在可信反代之后、且反代用 proxy_set_header「覆写」该头时才改为 true。
+    trust-proxy: false
+
+  # ============ 支付（支付宝） ============
+  pay:
+    alipay:
+      enabled: true
+      # 沙箱 APPID；正式环境替换为开放平台创建应用的 APPID
+      app-id: 9021000170678738
+      # 沙箱网关；正式环境改为 https://openapi.alipay.com/gateway.do
+      gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+      # 异步通知地址（公网可达的回调地址）。
+      # 本地联调常用内网穿透，免费版重启会换域名——这类地址属于个人环境信息，
+      # 不写进仓库，通过环境变量 PAY_NOTIFY_URL 注入（见 env.local.bat.example）
+      notify-url: ${PAY_NOTIFY_URL:http://localhost:8080/pay/notify/alipay}
+      # 同步跳转（仅用于展示，不能作为支付成功依据）
+      return-url: http://localhost:5173/pay/result
+      sign-type: RSA2
+      charset: UTF-8
+      format: json
+      # 应用私钥（PKCS8，本地文件，已加入 .gitignore）
+      app-private-key-path: classpath:certs/app_private_key.txt
+      # 支付宝公钥（验签回调用，不是应用公钥）
+      alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkv0PDQyMnfmjBt9qjt4Anbu5Jngqvsyv42CjGfISUquF2yuWXPNnw8jWqRTDItphehw9mvbBjlQSzoCFv1Nlcg01fA/7h0aQGsTtPMeeL1W6Ko4uuzFKfkpXQNKaEdY+uwGDLEyiSZvjnFOwk0bIb0dLRWc08XNPhSIq5g4Ugm/MWAStsvggT2WXnKMYSYiE+7yv3NEIbAShfyG4ghq/aSQbINErMnqSkhB0mjIivdeZBzdnlSaBm+yVkJIZkeN4mA52HQaPbajKlYecxQPVxoUjyKmBHPzNwjniJhQMjXPFFpBZB0s4KbnXOcn3ip1gNaRQxMTqvG5Q0/WPLZTpIQIDAQAB
+      # 支付单有效期（分钟）
+      order-expire-minutes: 15
+      # 模拟支付开关：本地开发/自动化测试置 true 可跳过支付宝网关，
+      # 下单后调用 POST /pay/mock/pay/{orderNo} 即可完成支付，退款也走本地。
+      # 生产环境必须为 false。
+      mock-enabled: false
