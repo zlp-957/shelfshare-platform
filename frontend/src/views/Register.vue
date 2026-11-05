@@ -82,7 +82,6 @@
         </div>
       </div>
 
-      <p class="auth-meta">广东财经大学 · 图书借阅管理</p>
     </section>
   </div>
 </template>
@@ -349,20 +348,13 @@ const handleRegister = () => {
   margin-top: 2px;
   flex-shrink: 0;
 }
-.auth-meta {
-  margin-top: var(--sp-6);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-}
 
 /* ---------------- 入场编排 ---------------- */
 @media (prefers-reduced-motion: no-preference) {
   .brand-top,
   .brand-statement,
   .brand-steps,
-  .auth-card,
-  .auth-meta {
+  .auth-card {
     animation: rise var(--dur-slow) var(--ease-out) both;
   }
   .brand-statement {
@@ -373,9 +365,6 @@ const handleRegister = () => {
   }
   .auth-card {
     animation-delay: 60ms;
-  }
-  .auth-meta {
-    animation-delay: 240ms;
   }
 }
 @keyframes rise {
@@ -410,9 +399,6 @@ const handleRegister = () => {
   }
   .auth-panel {
     padding: var(--sp-6) var(--sp-5) var(--sp-8);
-  }
-  .auth-meta {
-    display: none;
   }
 }
 </style>

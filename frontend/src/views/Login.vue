@@ -71,7 +71,6 @@
         </div>
       </div>
 
-      <p class="auth-meta">广东财经大学 · 图书借阅管理</p>
 
       <!-- 忘记密码：先提交申请 → 管理员电话核实后给重置码 → 自己设新密码 -->
       <el-dialog
@@ -468,20 +467,13 @@ function doReset() {
   font-size: 12px;
   line-height: 1.6;
 }
-.auth-meta {
-  margin-top: var(--sp-7);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-}
 
 /* ---------------- 入场编排 ---------------- */
 @media (prefers-reduced-motion: no-preference) {
   .brand-top,
   .brand-statement,
   .brand-features,
-  .auth-card,
-  .auth-meta {
+  .auth-card {
     animation: rise var(--dur-slow) var(--ease-out) both;
   }
   .brand-statement {
@@ -492,9 +484,6 @@ function doReset() {
   }
   .auth-card {
     animation-delay: 60ms;
-  }
-  .auth-meta {
-    animation-delay: 240ms;
   }
 }
 @keyframes rise {
@@ -524,9 +513,6 @@ function doReset() {
   }
   .brand-statement h1 {
     font-size: 28px;
-  }
-  .auth-meta {
-    display: none;
   }
 }
 </style>
